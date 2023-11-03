@@ -1,4 +1,4 @@
-<?php require_once ('C:/xampp/htdocs/PrimerMVC/models/cursos_model.php');?>
+<?php require_once('C:/xampp/htdocs/MiTienda/models/persona_model.php'); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,12 +11,13 @@
 
 <?php
 echo "<hr/>";
-
-$datos = ModelCursos::mostrarCursos();
+$datos = ModelPersona::mostrarPersonas();
 foreach ($datos as $dato) {
-    echo "Curso ". $dato["id"] . "<br/>" ;
+    echo "Alumno ". $dato["id"] . "<br/>" ;
     echo " -Nombre: ".$dato["nombre"] . "<br/>";
-    echo " -Año: ".$dato["ano"] . "<br/>";
+    echo " -Apellido: ".$dato["apellido"] . "<br/>";
+    echo " -Dni:  ".$dato["dni"] . "<br/>";
+    echo " -Curso: ".$dato["curso"] . "<br/>";
     echo "<hr/>";
 
 

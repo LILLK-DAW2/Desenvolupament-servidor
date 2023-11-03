@@ -1,17 +1,17 @@
 <?php
-require_once("C:/xampp/htdocs/PrimerMVC/db/db.php");
+require_once("C:/xampp/htdocs/MiTienda/db/db.php");
 
-class personas_controller{
+class users_controller{
     private $tabla;
     private $db;
-    private $personas;
+    private $users;
  
     public function __construct(){
         $this->db=Conectar::conexion();
-        $this->personas=array();
+        $this->users=array();
         $this -> tabla = "alumnos";
     }
-    public function get_personas(){
+    public function get_users(){
         $sql="select * from `$this->tabla`";
 
 
@@ -25,11 +25,11 @@ class personas_controller{
         }
 
         while($filas=$consulta->fetch_assoc()){
-            $this->personas[]=$filas;
+            $this->users[]=$filas;
         }
-        return $this->personas;
+        return $this->users;
     }
-   function set_personas($nombre, $apellido, $dni, $curso){
+   function set_users($nombre, $apellido, $dni, $curso){
         $id = Conectar::autonumerico($this->tabla);
 
        $sql="INSERT INTO `$this->tabla`(`id`, `nombre`, `apellido`, `dni`,`curso`) 

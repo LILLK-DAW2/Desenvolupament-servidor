@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <body>
-<?php require_once ('C:/xampp/htdocs/PrimerMVC/models/cursos_model.php');?>
+<?php require_once ('C:/xampp/htdocs/MiTienda/models/cursos_model.php');?>
 <form method="post">
     <label >idSolicitado:</label>
     <input type="text" name="idSolicitado"><br><br>

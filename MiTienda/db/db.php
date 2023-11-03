@@ -1,6 +1,6 @@
 <?php
 
-require_once("C:/xampp/htdocs/PrimerMVC/db/db.php");
+require_once("C:/xampp/htdocs/MiTienda/db/db.php");
 
 class Conectar
 {

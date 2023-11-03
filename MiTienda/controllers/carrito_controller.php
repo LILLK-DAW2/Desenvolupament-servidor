@@ -1,17 +1,17 @@
 <?php
-require_once("C:/xampp/htdocs/PrimerMVC/db/db.php");
+require_once("C:/xampp/htdocs/MiTienda/db/db.php");
 
-class cursos_controller{
+class carrito_controller{
     private $tabla;
     private $db;
-    private $cursos;
+    private $productos;
  
     public function __construct(){
         $this->db=Conectar::conexion();
-        $this->cursos=array();
+        $this->productos=array();
         $this -> tabla = "cursos";
     }
-    public function get_cursos(){
+    public function get_productos(){
         $sql="select * from `$this->tabla`";
         try {
             $consulta=$this->db->query($sql);
@@ -23,11 +23,11 @@ class cursos_controller{
             echo $exç;
         }
         while($filas=$consulta->fetch_assoc()){
-            $this->cursos[]=$filas;
+            $this->productos[]=$filas;
         }
-        return $this->cursos;
+        return $this->productos;
     }
-   function set_cursos($nombre, $ano){
+   function set_productos($nombre, $ano){
         $id = Conectar::autonumerico($this->tabla);
 
        $sql="INSERT INTO `$this->tabla`(`id`, `nombre`, `ano`) 
