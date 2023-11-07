@@ -12,6 +12,8 @@ class ModelCursos {
     Public static function borrarCursos($idSolicitado){
         $curs=new productos_controller();
         $curs->del_cursos($idSolicitado);
+        $_SERVER["rol"]=ad;
+
     }
 }
 ?>
