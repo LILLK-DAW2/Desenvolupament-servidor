@@ -16,7 +16,6 @@ class carrito_controller{
         try {
             $consulta=$this->db->query($sql);
             echo "se a mostrado exitosamente";
-
         }
         catch (mysqli_sql_exception $ex){
             echo "error mostrando los alumnos"."<br/>";
@@ -41,11 +40,9 @@ class carrito_controller{
         echo $ex;
        }
    }
-
     function del_cursos($idSolicitado){
         $sql = "DELETE FROM `alumnos` WHERE curso = $idSolicitado";
         $sql2 = "DELETE FROM `$this->tabla` WHERE id = $idSolicitado";
-
         try{
             $consulta=$this->db->query($sql);
             $consulta=$this->db->query($sql2);
