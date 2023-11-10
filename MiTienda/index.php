@@ -1,4 +1,3 @@
 <?php
-require_once("db/db.php");
-require_once("controllers/users_controller.php");
+require_once("views/Log.php");
 ?>
