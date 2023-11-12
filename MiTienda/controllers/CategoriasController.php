@@ -19,9 +19,8 @@ class CategoriasController
         $sql = "select * from `$this->tabla`";
         try {
             $consulta = $this->db->query($sql);
-            echo "se a mostrado exitosamente";
         } catch (mysqli_sql_exception $ex) {
-            echo $exç;
+            echo $ex;
         }
 
         while ($filas = $consulta->fetch_assoc()) {
@@ -30,20 +29,56 @@ class CategoriasController
         return $this->categorias;
     }
 
-    function set_categorias($nombre, $apellido, $dni, $curso)
+    function set_categorias($nombre, $descripcion)
     {
         $id = Conectar::autonumerico($this->tabla);
-        $sql = "INSERT INTO `$this->tabla`(`id`, `nombre`, `apellido`, `dni`,`curso`) 
-        VALUES ('$id','$nombre','$apellido','$dni','$curso')";
-
-
+        $sql = "INSERT INTO `$this->tabla`(`id`, `nombre`, `descripcion`) 
+                VALUES ('$id','$nombre','$descripcion')";
         try {
             $consulta = $this->db->query($sql);
-            echo "Alumno añadido existente";
+            echo "categoría añadida";
         } catch (mysqli_sql_exception $ex) {
-            echo $ex;
+            echo "CategoriasController set_categorias catch " . $ex;
         }
     }
-}
 
+    function updt_categorias($campoACambiar, $valorACambiar, $idSolicitado)
+    {
+        if ($this->existsCategoria($idSolicitado)) {
+            $sql = "UPDATE `$this->tabla` SET `$campoACambiar` = '$valorACambiar' WHERE `id` = $idSolicitado";
+            try {
+                $consulta = $this->db->query($sql);
+                echo "categoría actualizada";
+            } catch (mysqli_sql_exception $ex) {
+                echo "no se ha podido editar la categoría con id $idSolicitado" . "<br/>";
+                echo $ex;
+            }
+        } else {
+            echo "La categoría con ID $idSolicitado no existe.";
+        }
+    }
+
+    function del_categorias($idSolicitado)
+    {
+        if ($this->existsCategoria($idSolicitado)) {
+            $sql = "DELETE FROM `$this->tabla` WHERE id = $idSolicitado";
+            try {
+                $consulta = $this->db->query($sql);
+                echo "categoría borrada";
+            } catch (mysqli_sql_exception $ex) {
+                echo "no se ha podido borrar la categoría con id $idSolicitado" . "<br/>";
+                echo $ex;
+            }
+        } else {
+            echo "La categoría con ID $idSolicitado no existe.";
+        }
+    }
+
+    function existsCategoria($idSolicitado)
+    {
+        $sql = "SELECT * FROM `$this->tabla` WHERE id = $idSolicitado";
+        $result = $this->db->query($sql);
+        return $result->num_rows > 0;
+    }
+}
 ?>

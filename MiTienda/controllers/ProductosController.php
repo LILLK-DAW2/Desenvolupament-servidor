@@ -19,10 +19,7 @@ class ProductosController
         $sql = "select * from `$this->tabla`";
         try {
             $consulta = $this->db->query($sql);
-            echo "se a mostrado exitosamente";
-
         } catch (mysqli_sql_exception $ex) {
-            echo "error mostrando los alumnos" . "<br/>";
             echo $ex;
         }
 
@@ -32,33 +29,98 @@ class ProductosController
         return $this->productos;
     }
 
-    function set_productos($nombre, $ano)
-    {
-        $id = Conectar::autonumerico($this->tabla);
-        $sql = "INSERT INTO `$this->tabla`(`id`, `nombre`, `ano`) 
-    VALUES ('$id','$nombre','$ano')";
-        try {
-            $consulta = $this->db->query($sql);
-            echo "se  a añadio exitosamente";
-        } catch (mysqli_sql_exception $ex) {
-            echo "error añadiendo curso" . "<br/>";
-            echo $ex;
-        }
-    }
-
-    function del_cursos($idSolicitado)
-    {
-        $sql = "DELETE FROM `alumnos` WHERE curso = $idSolicitado";
-        $sql2 = "DELETE FROM `$this->tabla` WHERE id = $idSolicitado";
-
-        try {
-            $consulta = $this->db->query($sql);
-            $consulta = $this->db->query($sql2);
-        } catch (mysqli_sql_exception $ex) {
-            echo "no se a podido borrar los el curso con id $idSolicitado" . "<br/>";
-            echo $ex;
-        }
+    function set_productos($nombre, $stock, $precio, $categoria)
+{
+    $id = Conectar::autonumerico($this->tabla);
+    $sql = "INSERT INTO `$this->tabla`(`id`, `nombre`, `stock`, `precio`, `categoria`) 
+                VALUES ('$id','$nombre','$stock','$precio','$categoria')";
+    try {
+        $consulta = $this->db->query($sql);
+        echo "producto añadido";
+    } catch (mysqli_sql_exception $ex) {
+        echo "ProductosController set_productos catch " . $ex;
     }
 }
 
+    function updt_productos($campoACambiar, $valorACambiar, $idSolicitado)
+    {
+        if ($this->existsProducto($idSolicitado)) {
+            $sql = "UPDATE `$this->tabla` SET `$campoACambiar` = '$valorACambiar' WHERE `id` = $idSolicitado";
+            try {
+                $consulta = $this->db->query($sql);
+                echo "producto actualizado";
+            } catch (mysqli_sql_exception $ex) {
+                echo "no se ha podido editar el producto con id $idSolicitado" . "<br/>";
+                echo $ex;
+            }
+        } else {
+            echo "El producto con ID $idSolicitado no existe.";
+        }
+    }
+
+    function del_productos($idSolicitado)
+    {
+        if ($this->existsProducto($idSolicitado)) {
+            $sql = "DELETE FROM `$this->tabla` WHERE id = $idSolicitado";
+            try {
+                $consulta = $this->db->query($sql);
+                echo "producto borrado";
+            } catch (mysqli_sql_exception $ex) {
+                echo "no se ha podido borrar el producto con id $idSolicitado" . "<br/>";
+                echo $ex;
+            }
+        } else {
+            echo "El producto con ID $idSolicitado no existe.";
+        }
+    }
+
+    function existsProducto($idSolicitado)
+    {
+        $sql = "SELECT * FROM `$this->tabla` WHERE id = $idSolicitado";
+        $result = $this->db->query($sql);
+        return $result->num_rows > 0;
+    }
+
+    public function get_productosOrdenados($sortBy, $order)
+    {
+        $sql = "SELECT * FROM `productos` ORDER BY $sortBy $order";
+        $productos = array();
+
+        try {
+            $consulta = $this->db->query($sql);
+        } catch (mysqli_sql_exception $ex) {
+            echo $ex;
+        }
+
+        while ($filas = $consulta->fetch_assoc()) {
+            $productos[] = $filas;
+        }
+
+        return $productos;
+    }
+
+    public function get_productoById($idProducto)
+    {
+        $sql = "SELECT * FROM `$this->tabla` WHERE id = $idProducto";
+        try {
+            $consulta = $this->db->query($sql);
+            return  $consulta->fetch_assoc();
+        } catch (mysqli_sql_exception $ex) {
+            echo "Error al obtener el producto con ID $idProducto: " . $ex;
+            return null;
+        }
+    }
+    public function get_productoPrecioById($idProducto)
+    {
+        $sql = "SELECT `precio` FROM `$this->tabla` WHERE id = $idProducto";
+        try {
+            $consulta = $this->db->query($sql);
+            return  $consulta->fetch_assoc();
+        } catch (mysqli_sql_exception $ex) {
+            echo "Error al obtener el producto con ID $idProducto: " . $ex;
+            return null;
+        }
+    }
+
+}
 ?>

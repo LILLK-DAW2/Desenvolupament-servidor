@@ -19,6 +19,7 @@
         <button type="submit" name="registrase" value="registrase">Registrarse</button>
     </form>
 </section>
+<button name="Log in"><a href="Log.php"> Log in </a></button>
 <?php
 require_once("C:/xampp/htdocs/MiTienda/models/UsersModel.php");
 if (isset($_POST['registrase'])) {
@@ -29,6 +30,5 @@ if (isset($_POST['registrase'])) {
     }
 }
 ?>
-<button name="Log in"><a href="Log.php"> Log in </a></button>
 </body>
 </html>
