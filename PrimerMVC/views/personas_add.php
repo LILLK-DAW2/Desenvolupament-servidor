@@ -17,6 +17,8 @@
 <button name="home"><a href="menu.html"> Volver al menu </a> </button>
 
 <?php
+
+
 if($_SERVER['REQUEST_METHOD']=='POST') {
     ModelPersona::anadirPersonas($_POST['nombre'],$_POST['apellido'],$_POST['dni'],$_POST['curso']);
 }

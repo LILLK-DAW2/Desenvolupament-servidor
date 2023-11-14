@@ -54,5 +54,12 @@ class cursos_controller{
             echo $ex;
         }
     }
+
+    function existsCurso($idSolicitado)
+    {
+        $sql = "SELECT * FROM `$this->tabla` WHERE id = $idSolicitado";
+        $result = $this->db->query($sql);
+        return $result->num_rows > 0;
+    }
 }
 ?>
