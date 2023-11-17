@@ -27,7 +27,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/alumnat/Documents/GitHub/Desenvolupament-servidor",
+    "last_opened_file_path": "C:/xampp/htdocs/MiTienda",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -46,6 +46,7 @@
       <workItem from="1699034984098" duration="2277000" />
       <workItem from="1699983853272" duration="63000" />
       <workItem from="1699983918038" duration="9000" />
+      <workItem from="1700243136764" duration="1553000" />
     </task>
     <servers />
   </component>

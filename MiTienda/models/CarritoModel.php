@@ -4,10 +4,10 @@ require_once("C:/xampp/htdocs/MiTienda/controllers/CarritoController.php");
 class CarritoModel
 {
 
-    public static function agregarAlCarrito($idProducto,$sumar)
+    public static function agregarAlCarrito($idProducto,$sumar,$idCarrito)
     {
         $carritoController = new CarritoController();
-        $carritoController->add_to_carrito($idProducto,$sumar);
+        $carritoController->add_to_carrito($idProducto,$sumar,$idCarrito);
     }
 
     public static function obtenerCarrito()

@@ -15,22 +15,7 @@ class CarritoController
         $this->tabla = "carrito";
     }
 
-    function set_carrito($productoId, $cantidad, $precio)
-    {
-        $usuarioId = $_SESSION["id"];
-        $id = Conectar::autonumerico($this->tabla);
 
-
-
-        $sql = "INSERT INTO `$this->tabla` (`id`, `producto`, `cantidad`, `precio`, `usuario`) 
-                VALUES ('$id', '$productoId', '$cantidad', '$precio', '$usuarioId')";
-        try {
-            $consulta = $this->db->query($sql);
-            echo "Producto añadido al carrito";
-        } catch (mysqli_sql_exception $ex) {
-            echo "Error al añadir producto al carrito: " . $ex;
-        }
-    }
 
     public function get_carrito()
     {
@@ -52,7 +37,30 @@ class CarritoController
         }
         return $this->carrito;
     }
+    function set_carrito($productoId, $cantidad, $precio)
+    {
+        $usuarioId = $_SESSION["id"];
+        $id = Conectar::autonumerico($this->tabla);
 
+
+
+        $sql = "INSERT INTO `$this->tabla` (`id`, `producto`, `cantidad`, `precio`, `usuario`) 
+                VALUES ('$id', '$productoId', '$cantidad', '$precio', '$usuarioId')";
+        try {
+            $consulta = $this->db->query($sql);
+            echo "Producto añadido al carrito";
+        } catch (mysqli_sql_exception $ex) {
+            if (str_contains($ex, 'FK_Carrito_Producto')) {
+                echo "Ni existe el producto";
+            }
+            else if(str_contains($ex, 'FK_Carrito_User')){
+                echo "No existe el usuario";
+            }else{
+                echo "Error al añadir producto al carrito: " . $ex;
+            }
+
+        }
+    }
     function updt_carrito($campoACambiar, $valorACambiar, $idSolicitado)
     {
         if ($this->existsCarrito($idSolicitado)) {

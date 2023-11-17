@@ -38,8 +38,13 @@ class ProductosController
         $consulta = $this->db->query($sql);
         echo "producto añadido";
     } catch (mysqli_sql_exception $ex) {
-        echo "ProductosController set_productos catch " . $ex;
+        if (str_contains($ex, 'FK_Producto_Categoria')) {
+            echo "no existe la categoria insertada";
+        }else{
+            echo "ProductosController set_productos catch " . $ex;
+        }
     }
+
 }
 
     function updt_productos($campoACambiar, $valorACambiar, $idSolicitado)

@@ -1,5 +1,7 @@
 <?php require_once("C:/xampp/htdocs/MiTienda/models/ProductosModel.php"); ?>
-<?php require_once("C:/xampp/htdocs/MiTienda/models/CarritoModel.php"); ?>
+<?php require_once("C:/xampp/htdocs/MiTienda/models/CarritoModel.php");
+ob_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +37,9 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($productos as $producto) { ?>
+        <?php foreach ($productos as $producto) {
+            ob_get_contents();
+            ?>
             <tr>
                 <td><?php echo $producto["id"] ?></td>
                 <td><?php echo $producto["nombre"] ?></td>
@@ -55,8 +59,10 @@
     <?php
     if (isset($_POST['agregarCarrito'])) {
         $idProducto = $_POST["idProducto"];
-        CarritoModel::agregarAlCarrito($idProducto,true);
+        CarritoModel::agregarAlCarrito($idProducto,true,0);
         CarritoModel::updateStock($idProducto,false);
+        header("refresh: 1");
+
     }
     ?>
 </section>
@@ -80,6 +86,7 @@
         <?php
         $carritos = CarritoModel::obtenerCarrito();
         foreach ($carritos as $carrito) {
+            ob_get_contents();
             ?>
             <tr>
                 <form method="post">
@@ -90,7 +97,7 @@
                         <td><?php echo $carrito["cantidad"] ?></td>
                         <td><?php echo $carrito["precio"] ?>€</td>
                         <td>
-                        <input type="hidden" name="idCarrito" value="<?php echo $carrito["id"] ?>">
+                        <input type="hidden" name="idCarrito" value="<?php  echo $carrito["id"] ?>">
                         <button type="submit" name="quitarCarrito">Quitar del Carrito</button>
                     </form>
                 </td>
@@ -101,9 +108,10 @@
     <?php
     if (isset($_POST['quitarCarrito'])) {
         $idCarrito = $_POST['idCarrito'];
-            $idProducto = $_POST["idProduct"];
-        CarritoModel::agregarAlCarrito($idProducto,false);
+        $idProducto = $_POST["idProduct"];
+        CarritoModel::agregarAlCarrito($idProducto,false,$idCarrito);
         CarritoModel::updateStock($idProducto,true);
+        header("refresh: 1");
     }
     ?>
 </section>
